@@ -15,6 +15,7 @@ let game = {
   $hint: $('#hint'),
   $newGameOption: $('#option'),
   gameOn: true,
+  $allButtons: $('.input-btn'),
   htmlContent: null 
 };
 
@@ -36,6 +37,7 @@ async function main() {
   let victory = false;
 
   // initiate pop up
+
   displayPopUp();
 
   // Wait for the user to select a topic
@@ -204,6 +206,8 @@ function createHint(randomWord) {
 function displayPopUp() {
   game.$popUp.fadeTo(1000, 1);
   game.$popUp.css('z-index', '0');
+  // disable all buttons until pop-up is gone
+  disableAllButtons();
 }
 
 function hidePopUp() {
@@ -211,6 +215,7 @@ function hidePopUp() {
   game.$popUp.css('z-index', '-2');
   // unblur main content after selecting topic.
   game.$main.css('filter', 'blur(0px)');
+  enableAllButtons();
 }
 
 function displayResult(victory) {
@@ -222,6 +227,8 @@ function displayResult(victory) {
   }
   game.$result.fadeTo(1000,3);
   game.$result.css('z-index', 0);
+  game.$main.css('filter', 'blur(10px)');
+  disableAllButtons();
 }
 
 function hideResult() {
@@ -243,6 +250,7 @@ function resetAll() {
   resetHint();
   resetBtn();
 }
+
 function resetGame(e) {
   const input = e.target.value;
   if(input !== undefined) {
@@ -254,4 +262,11 @@ function resetGame(e) {
     } else {
     }
   }
+}
+
+function enableAllButtons() {
+  game.$allButtons.prop('disabled', false);
+}
+function disableAllButtons() {
+   game.$allButtons.prop('disabled', true)
 }
