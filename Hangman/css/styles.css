@@ -340,6 +340,11 @@ body {
   justify-content: center;
 }
 
+#hangman-image {
+  border-radius: 3px;
+  border: 2px solid grey;
+}
+
 #gameplay {
   display: flex;
   flex: 1;
@@ -382,7 +387,9 @@ main {
 
 .input-btn {
   align-items: center;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-color: #fff;
   border-radius: 24px;
   border-style: none;
@@ -406,7 +413,8 @@ main {
   text-align: center;
   text-transform: none;
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-  user-select: none;
+  -moz-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   width: auto;

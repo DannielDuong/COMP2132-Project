@@ -390,11 +390,11 @@ body {
 #hangman-display {
   display: flex;
   justify-content: center;
-  background-color: black;
-  @include rounded-shaded-box(3px, grey);
 }
 
-
+#hangman-image {
+  @include rounded-shaded-box(3px, grey);
+}
 
 #gameplay {
   display: flex;
