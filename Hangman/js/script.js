@@ -127,6 +127,8 @@ function addWordToWordDisplay(randomWord) {
   for (i = 0; i < randomWord.length; i++) {
     if (randomWord[i] !== ' ') {
       htmlContent += '_';
+    } else {
+      htmlContent += ' ';
     }
   }
   return htmlContent;
@@ -166,20 +168,21 @@ function createHint(randomWord) {
   const maxHints = 3;
   const usedIndices = [];
 
-  game.$hint.on('click', function (e) {
-    if(game.gameOn) {
+  function handleHintClick() {
+    if (game.gameOn) {
+      console.log(hintCount);
       if (hintCount !== maxHints) {
         let randomIndex, randomChar;
-  
-        // Loop and push to usedIndices to get unique hint each time users click hint. 
+
+        // Loop and push to usedIndices to get a unique hint each time users click hint.
         do {
           [randomIndex, randomChar] = getRandomIndexAndChar(0, randomWord.length, randomWord);
         } while (usedIndices.includes(randomIndex));
-  
+
         usedIndices.push(randomIndex);
-  
+
         let htmlContentArray = game.htmlContent.split('');
-  
+
         // Replace occurrences of the randomChar in the word
         let [condition, indexList] = checkInputInWord(randomChar, randomWord);
         if (condition) {
@@ -189,19 +192,27 @@ function createHint(randomWord) {
           game.htmlContent = htmlContentArray.join('');
           game.$wordDisplay.html(game.htmlContent);
         }
-  
+
         hintCount++;
-  
-        // Disable input key if hint is showed 
+
+        // Disable input key if a hint is shown
         $(`[value="${randomChar}"]`).prop('disabled', true);
       }
-      // another if to disable hint right after 3 attempt clicks
+      // Another if to disable the hint right after 3 attempt clicks
       if (hintCount === maxHints) {
         game.$hint.css('fill', 'grey');
+        game.$hint.off('click', handleHintClick); // Unbind the click event after maxHints is reached
       }
     }
-  });
+  }
+
+  // Unbind existing click events before attaching a new one
+  game.$hint.off('click', handleHintClick);
+
+  // Attach the event listener to the hint button
+  game.$hint.on('click', handleHintClick);
 }
+
 
 function displayPopUp() {
   game.$popUp.fadeTo(1000, 1);
@@ -269,4 +280,10 @@ function enableAllButtons() {
 }
 function disableAllButtons() {
    game.$allButtons.prop('disabled', true)
+}
+
+function resetHangManImage() {
+  const $hangManImage = $('#hangman-image');
+  const hangManImagePath = `../images/0.jpg`;
+  $hangManImage.attr('src', `${hangManImagePath}`);
 }

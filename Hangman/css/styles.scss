@@ -431,7 +431,7 @@ main {
 #last-input1 {
     grid-column: 3/4;
 }
-.input-btn {
+.input-btn,.input-btn2 {
   align-items: center;
   appearance: none;
   background-color: #fff;
@@ -465,7 +465,7 @@ main {
   z-index: 0;
 }
 
-.input-btn:hover {
+.input-btn:hover,.input-btn2:hover {
   background: #F6F9FE;
   color: #174ea6;
 }
@@ -559,7 +559,7 @@ footer {
 
 @media (min-width: 900px) {
     #wrapper {
-        max-width: 900px;
+        max-width: 700px;
         font-size: 1.2rem;
     }
     #show-pass {
